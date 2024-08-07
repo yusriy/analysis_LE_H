@@ -2,20 +2,17 @@ library(ggplot2)
 library(ggspatial)
 library(sf)
 library(prettymapr)
+library(ggmap)
 
 # Load environment variables from the .Renviron file
 readRenviron(".Renviron")
 
-# Retrieve the API key from the environment variable
-api_key <- Sys.getenv("GOOGLE_MAPS_API_KEY")
 
 # Check if the API key is loaded correctly
 if (api_key == "") {
   stop("API key not found. Please ensure it is set in the .Renviron file.")
 }
 
-# Retrieve the API key from environment variables
-api_key <- Sys.getenv("GOOGLE_MAPS_API_KEY")
 
 # Register Google Maps API key
 register_google(key = api_key)
@@ -58,7 +55,7 @@ ggplot() +
 
 library(ggplot2)
 library(sf)
-library(ggmap)
+
 
 # Define the coordinates
 latitude <- 5.5
@@ -92,8 +89,6 @@ grid_cell <- st_polygon(list(rbind(
 point_sf <- st_as_sf(point_of_interest, coords = c("lon", "lat"), crs = 4326)
 grid_sf <- st_sfc(grid_cell, crs = 4326)
 
-# Register Google Maps API key
-register_google(key = "")  # Use your Google Maps API key here
 
 # Get a basemap from Google Maps
 map <- get_googlemap(center = c(lon = longitude, lat = latitude), zoom = 10, maptype = "terrain")
