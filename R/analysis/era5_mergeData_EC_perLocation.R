@@ -2,7 +2,7 @@ library(dplyr)
 library(lubridate)
 
 # Load the ERA5 data files
-era5_files <- list.files(path = "data/", pattern = "location_.*\\.csv", full.names = TRUE)
+era5_files <- list.files(path = "data", pattern = "location_.*\\.csv", full.names = TRUE)
 
 # Initialize lists to store the daily and monthly averaged dataframes
 daily_avg_list <- list()
@@ -13,7 +13,7 @@ for (file in era5_files) {
   
   # Load the ERA5 data
   era5_data <- read.csv(file)
-  
+  #era5_data <- read.csv("data/location_5.75_100.25.csv")
   # Ensure the time column is in POSIXct format
   era5_data$time <- as.POSIXct(era5_data$time, tz = "Asia/Kuala_Lumpur")
   
