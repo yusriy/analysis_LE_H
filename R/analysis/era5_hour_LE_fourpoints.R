@@ -23,17 +23,34 @@ time_myt <- format(time, tz = "Asia/Kuala_Lumpur", usetz = TRUE)
 nc_close(nc_file)
 
 # Find the indices of the nearest longitude and latitude for the specified coordinates
+# Indices for the nine locations
+
 lon_idx_1 <- which.min(abs(lon - 100.0))
-lat_idx_1 <- which.min(abs(lat - 5.5))
+lat_idx_1 <- which.min(abs(lat - 5.25))
 
 lon_idx_2 <- which.min(abs(lon - 100.25))
-lat_idx_2 <- which.min(abs(lat - 5.5))
+lat_idx_2 <- which.min(abs(lat - 5.25))
 
-lon_idx_3 <- which.min(abs(lon - 100.0))
-lat_idx_3 <- which.min(abs(lat - 5.75))
+lon_idx_3 <- which.min(abs(lon - 100.50))
+lat_idx_3 <- which.min(abs(lat - 5.25))
 
-lon_idx_4 <- which.min(abs(lon - 100.25))
-lat_idx_4 <- which.min(abs(lat - 5.75))
+lon_idx_4 <- which.min(abs(lon - 100.0))
+lat_idx_4 <- which.min(abs(lat - 5.5))
+
+lon_idx_5 <- which.min(abs(lon - 100.25))
+lat_idx_5 <- which.min(abs(lat - 5.5))
+
+lon_idx_6 <- which.min(abs(lon - 100.50))
+lat_idx_6 <- which.min(abs(lat - 5.5))
+
+lon_idx_7 <- which.min(abs(lon - 100.0))
+lat_idx_7 <- which.min(abs(lat - 5.75))
+
+lon_idx_8 <- which.min(abs(lon - 100.25))
+lat_idx_8 <- which.min(abs(lat - 5.75))
+
+lon_idx_9 <- which.min(abs(lon - 100.50))
+lat_idx_9 <- which.min(abs(lat - 5.75))
 
 # Extract the latent heat flux data for each specified coordinate
 slhf1 <- slhf[lon_idx_1, lat_idx_1, ]
