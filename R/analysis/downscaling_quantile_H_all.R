@@ -36,7 +36,7 @@ for (i in 1:nrow(locations)) {
   # ---- Quantile Mapping ----
   
   # Fit a quantile mapping model (using parametric method by default)
-  qm_fit <- fitQmap(H_ec, H_era5, method = "RQUANT") #QUANT #SSPLIN #PTF
+  qm_fit <- fitQmap(H_ec, H_era5, method = "QUANT") #QUANT #SSPLIN #PTF
   
   # Apply the quantile mapping transformation
   H_era5_corrected <- doQmap(H_era5, qm_fit)
