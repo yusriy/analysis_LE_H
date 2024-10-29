@@ -77,7 +77,8 @@ for (i in 1:nrow(locations)) {
   mbe_qmapped <- mean(merged_data_shifted$msdwswrf_era5_qmapped - merged_data_shifted$RG_ec, na.rm = TRUE)
   
   # Calculate Mean Absolute Percentage Error (MAPE)
-  mape_qmapped <- mean(abs((merged_data_shifted$msdwswrf_era5_qmapped - merged_data_shifted$RG_ec) / merged_data_shifted$RG_ec) * 100, na.rm = TRUE)
+  mape_qmapped <- mean(abs((merged_data_shifted$msdwswrf_era5_qmapped - merged_data_shifted$RG_ec) / 
+                             merged_data_shifted$RG_ec) * 100, na.rm = TRUE)
   
   # Store the metrics in the list
   metrics_list[[locations$name[i]]] <- data.frame(
