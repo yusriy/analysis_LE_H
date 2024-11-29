@@ -5,10 +5,10 @@ library(scales)
 library(patchwork)  # For combining plots
 
 # Specify the path to your NetCDF file
-file_path <- "data/era5/era5_nearCEMACS_v2.nc"
+file_path <- "/Users/yusriy/OneDrive/USM/Documents/research/Data_analysis/analysis_LE_H/data/era5/era5_nearCEMACS_v2.nc"
 
 # Create the output folder if it doesn't exist
-output_folder <- "fig_paper2"
+output_folder <- "/Users/yusriy/OneDrive/USM/Documents/research/Data_analysis/analysis_LE_H/fig_paper2"
 if (!dir.exists(output_folder)) {
   dir.create(output_folder)
 }
@@ -104,7 +104,7 @@ daily_avg_mslhf_df <- mslhf_df %>%
   summarize(latent_heat_flux_avg = mean(latent_heat_flux, na.rm = TRUE))
 
 # Load the eddy covariance data
-df_merged_day <- read.csv("data/df_merged_day.csv")
+df_merged_day <- read.csv("/Users/yusriy/OneDrive/USM/Documents/research/Data_analysis/analysis_LE_H/data/df_merged_day.csv")
 
 # Convert date columns to Date format for merging
 df_merged_day$date <- as.Date(df_merged_day$date)

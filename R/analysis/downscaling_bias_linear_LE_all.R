@@ -3,9 +3,9 @@ library(ggplot2)
 
 # Define the nine locations with file names and corresponding ERA5 latent heat flux columns
 locations <- data.frame(
-  name = c("5.25_100", "5.25_100.25", "5.25_100.50", 
-           "5.50_100", "5.50_100.25", "5.50_100.50", 
-           "5.75_100", "5.75_100.25", "5.75_100.50"),
+  name = c("Point 1", "Point 2", "Point 3", 
+           "Point 4", "Point 5", "Point 6", 
+           "Point 7", "Point 8", "Point 9"),
   file = c("data/merged_day_location_5.25_100.csv", "data/merged_day_location_5.25_100.25.csv", 
            "data/merged_day_location_5.25_100.50.csv", "data/merged_day_location_5.50_100.csv", 
            "data/merged_day_location_5.50_100.25.csv", "data/merged_day_location_5.50_100.50.csv", 
@@ -42,18 +42,27 @@ for (i in 1:nrow(locations)) {
   merged_data$LE_era5_corrected <- LE_era5_corrected
   
   # Plot the original and corrected LE from ERA5 vs. Eddy Covariance LE for comparison
-  plot_title <- paste("Latent Heat Flux (LE) Comparison: Eddy Covariance vs. ERA5 (Point", locations$name[i], ")")
   ggplot(merged_data, aes(x = date)) +
-    geom_line(aes(y = LE_ec, color = "LE (EC)"), size = 1) +
-    geom_line(aes(y = LE_era5, color = "LE (ERA5)"), size = 1, linetype = "dashed") +
-    geom_line(aes(y = LE_era5_corrected, color = "LE (ERA5 Corrected)"), size = 1, linetype = "dotdash") +
-    labs(title = plot_title,
-         x = "Date", y = "LE (W m–2)") +
+    geom_line(aes(y = LE_ec, color = "LE (EC)"), linewidth = 1) +
+    geom_line(aes(y = LE_era5, color = "LE (ERA5)"), linewidth = 1, linetype = "dashed") +
+    geom_line(aes(y = LE_era5_corrected, color = "LE (ERA5 Corrected)"), linewidth = 1, linetype = "dotdash") +
+    labs(
+      title = locations$name[i],  # Use Point 1, Point 2, etc.
+      x = "Date", 
+      y = expression(LE ~ (W ~ m^-2))  # Superscript -2
+    ) +
     scale_color_manual(values = c("LE (EC)" = "blue", "LE (ERA5)" = "red", "LE (ERA5 Corrected)" = "green")) +
     theme_minimal() +
-    theme(legend.title = element_blank())
+    theme(
+      legend.title = element_blank(),
+      panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8)  # Use `linewidth` instead of `size`
+    )
   
-  ggsave(paste0("fig_paper2/LE_Comparison_Bias_Corrected_", locations$name[i], ".jpeg"), width = 10, height = 6, dpi = 300)
+  # Save the plot
+  ggsave(
+    filename = paste0("fig_paper2/LE_Comparison_Bias_Corrected_", locations$name[i], ".jpeg"), 
+    width = 10, height = 6, dpi = 300
+  )
   
   # ---- Performance Metrics Calculation ----
   

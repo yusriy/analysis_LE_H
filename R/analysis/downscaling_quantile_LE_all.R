@@ -36,7 +36,7 @@ for (i in 1:nrow(locations)) {
   # ---- Quantile Mapping ----
   
   # Fit a quantile mapping model (using parametric method by default)
-  qm_fit <- fitQmap(LE_ec, LE_era5, method = "QUANT") #QUANT #SSPLIN #PTF
+  qm_fit <- fitQmap(LE_ec, LE_era5, method = "QUANT")
   
   # Apply the quantile mapping transformation
   LE_era5_corrected <- doQmap(LE_era5, qm_fit)
@@ -45,16 +45,20 @@ for (i in 1:nrow(locations)) {
   merged_data$LE_era5_corrected <- LE_era5_corrected
   
   # Plot the original and corrected LE from ERA5 vs. Eddy Covariance LE for comparison
-  plot_title <- paste("Latent Heat Flux (LE) Comparison: Eddy Covariance vs. ERA5 (Quantile Mapping, Point", locations$name[i], ")")
   ggplot(merged_data, aes(x = date)) +
-    geom_line(aes(y = LE_ec, color = "LE (EC)"), size = 1) +
-    geom_line(aes(y = LE_era5, color = "LE (ERA5)"), size = 1, linetype = "dashed") +
-    geom_line(aes(y = LE_era5_corrected, color = "LE (ERA5 Corrected)"), size = 1, linetype = "dotdash") +
-    labs(title = plot_title,
-         x = "Date", y = "LE (W m–2)") +
+    geom_line(aes(y = LE_ec, color = "LE (EC)"), linewidth = 1) +
+    geom_line(aes(y = LE_era5, color = "LE (ERA5)"), linewidth = 1, linetype = "dashed") +
+    geom_line(aes(y = LE_era5_corrected, color = "LE (ERA5 Corrected)"), linewidth = 1, linetype = "dotdash") +
+    labs(
+      x = "Date", 
+      y = expression(LE ~ (W ~ m^-2))  # Superscripted "–2"
+    ) +
     scale_color_manual(values = c("LE (EC)" = "blue", "LE (ERA5)" = "red", "LE (ERA5 Corrected)" = "green")) +
     theme_minimal() +
-    theme(legend.title = element_blank())
+    theme(
+      legend.title = element_blank(),
+      panel.border = element_rect(colour = "black", fill = NA, linewidth = 1)  # Add a box around the plot
+    )
   
   ggsave(paste0("fig_paper2/LE_Comparison_QM_Corrected_", locations$name[i], ".jpeg"), width = 10, height = 6, dpi = 300)
   
